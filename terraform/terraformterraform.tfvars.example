@@ -1,0 +1,6 @@
+# Скопируй этот файл в terraform.tfvars и заполни своими данными
+yc_token      = "ваш-secret-key-от-сервисного-аккаунта"
+yc_cloud_id   = "b1g1234567890abcdef12345"
+yc_folder_id  = "b1g9876543210fedcba54321"
+domain        = "example.com"
+# public_ip   = "192.0.2.1"
