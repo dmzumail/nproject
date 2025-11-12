@@ -11,10 +11,7 @@ data "yandex_compute_image" "ubuntu" {
   family = "ubuntu-2204-lts"
 }
 
-# Сеть и подсеть (должны быть в network.tf — убедись!)
-# (здесь не дублируем)
-
-# ВМ
+# ВМ с автоматическим HTTPS через Let's Encrypt
 resource "yandex_compute_instance" "web" {
   name        = "vm-${replace(var.domain, ".", "-")}"
   platform_id = "standard-v1"
@@ -34,7 +31,7 @@ resource "yandex_compute_instance" "web" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
-    nat       = true  # ← автоматически выдаст публичный IP
+    nat       = true
   }
 
   metadata = {
@@ -45,13 +42,24 @@ resource "yandex_compute_instance" "web" {
   allow_stopping_for_update = true
 }
 
-# A-запись — создаётся ПОСЛЕ ВМ
-#resource "yandex_dns_recordset" "site" {
-#  zone_id = yandex_dns_zone.public.id
-#  name    = "${var.domain}."
-#  type    = "A"
-#  ttl     = 300
-#  data    = [yandex_compute_instance.web.network_interface[0].nat_ip_address]
+# A-запись для корня домена
+resource "yandex_dns_recordset" "site" {
+  zone_id = yandex_dns_zone.public.id
+  name    = "${var.domain}."
+  type    = "A"
+  ttl     = 300
+  data    = [yandex_compute_instance.web.network_interface[0].nat_ip_address]
 
-#  depends_on = [yandex_compute_instance.web]
-#}
+  depends_on = [yandex_compute_instance.web]
+}
+
+# A-запись для www
+resource "yandex_dns_recordset" "www" {
+  zone_id = yandex_dns_zone.public.id
+  name    = "www.${var.domain}."
+  type    = "A"
+  ttl     = 300
+  data    = [yandex_compute_instance.web.network_interface[0].nat_ip_address]
+
+  depends_on = [yandex_compute_instance.web]
+}
