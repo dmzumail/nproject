@@ -18,10 +18,8 @@ variable "domain" {
   type        = string
 }
 
-/*
-variable "public_ip" {
-  description = "Public IPv4 address to point domain to"
+variable "ssh_public_key" {
+  description = "Public SSH key for VM access (optional)"
   type        = string
   default     = ""
 }
-*/

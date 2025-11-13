@@ -1,4 +1,4 @@
-.PHONY: init plan apply destroy fmt validate
+.PHONY: init plan apply destroy fmt validate output
 
 TF = terraform
 
@@ -19,3 +19,6 @@ apply:
 
 destroy:
 	$(TF) destroy
+
+output:
+	@$(TF) output -json | jq -r '.website_url.value // "Run terraform apply first"'

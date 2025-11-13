@@ -1,12 +1,12 @@
 # Настройка провайдера Yandex Cloud
 terraform {
+  required_version = ">= 1.5"
   required_providers {
     yandex = {
       source  = "yandex-cloud/yandex"
-      version = "~> 0.169.0"  # Используйте существующую версию
+      version = "~> 0.169"
     }
   }
-  required_version = ">= 1.0"
 }
 
 provider "yandex" {
