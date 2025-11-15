@@ -13,7 +13,6 @@ terraform {
     skip_region_validation      = true
     skip_requesting_account_id  = true
 
-    use_lockfile = true
     use_path_style = true  # 👈 ЗАМЕНИЛИ force_path_style на use_path_style
   }
 }
