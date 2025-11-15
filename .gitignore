@@ -1,13 +1,10 @@
 # Terraform
 *.tfstate
 *.tfstate.backup
+*.tfvars
 .terraform/
-
-# Исключаем только секретные tfvars, но не example
 terraform.tfvars
-# Шаблон для других секретов
-# prod.tfvars
-# staging.tfvars
+
 
 # IDE
 .vscode/
