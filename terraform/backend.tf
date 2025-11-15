@@ -12,7 +12,7 @@ terraform {
     skip_metadata_api_check     = true
     skip_region_validation      = true
     skip_requesting_account_id  = true
-
-    force_path_style = true  # ← ЭТО КРИТИЧНО ДЛЯ YANDEX
+    skip_s3_checksum            = true  # ← ЭТО КЛЮЧЕВОЙ ПАРАМЕТР ДЛЯ 1.6+
+    use_path_style              = true
   }
 }
