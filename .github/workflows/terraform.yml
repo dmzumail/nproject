@@ -17,12 +17,14 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.0  # Указываем явную версию для стабильности
 
       - name: Terraform Init
         working-directory: ./terraform
         run: terraform init
         env:
-          AWS_ACCESS_KEY_ID:     ${{ secrets.YC_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID:     ${{ secrets.YC_ACCESS_KEY_ID }}     # 👈 Используем секреты Yandex
           AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
 
       - name: Terraform Validate
@@ -41,7 +43,7 @@ jobs:
           TF_VAR_yc_token: ${{ secrets.YC_TOKEN }}
           TF_VAR_yc_cloud_id: ${{ secrets.YC_CLOUD_ID }}
           TF_VAR_yc_folder_id: ${{ secrets.YC_FOLDER_ID }}
-          AWS_ACCESS_KEY_ID:     ${{ secrets.YC_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID:     ${{ secrets.YC_ACCESS_KEY_ID }}     # 👈 Добавили для бэкенда
           AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
 
       - name: Terraform Apply
