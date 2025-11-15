@@ -13,6 +13,6 @@ terraform {
     skip_region_validation      = true
     skip_requesting_account_id  = true
 
-    use_path_style = true  # 👈 ЗАМЕНИЛИ force_path_style на use_path_style
+    force_path_style = true  # ← ЭТО КРИТИЧНО ДЛЯ YANDEX
   }
 }
