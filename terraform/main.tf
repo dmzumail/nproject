@@ -13,8 +13,8 @@ data "yandex_compute_image" "ubuntu" {
 
 # Security group для веб-сервера
 resource "yandex_vpc_security_group" "web" {
-  name        = "sg-web-${replace(var.domain, ".", "-")}"
-  network_id  = yandex_vpc_network.default.id
+  name       = "sg-web-${replace(var.domain, ".", "-")}"
+  network_id = yandex_vpc_network.default.id
 
   ingress {
     protocol       = "TCP"
@@ -57,7 +57,7 @@ resource "yandex_compute_instance" "web" {
   }
 
   metadata = {
-    ssh-keys = var.ssh_public_key != "" ? "ubuntu:${var.ssh_public_key}" : ""
+    ssh-keys  = var.ssh_public_key != "" ? "ubuntu:${var.ssh_public_key}" : ""
     user-data = templatefile("${path.module}/cloud-init.yaml.tftpl", { domain = var.domain })
   }
 
